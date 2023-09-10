@@ -29,6 +29,11 @@
         // Recursos para la paginación
         $totalArticles = $data['totalArticles'][0]['totalArticles'];
         $totalPages    = ceil($totalArticles / $totalArticlesByPage);
+
+        // Validación de parámetros en la url
+        if($page > $totalPages || $page < 1) {
+            header("Location: index.php");
+        }
     ?>
 </head>
 <body>
