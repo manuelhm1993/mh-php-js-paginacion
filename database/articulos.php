@@ -1,16 +1,22 @@
 <?php
 
-$select = function($pageL, $totalArticlesByPageO) use ($link, $user, $password, $cerrarConexiones) {
+$select = function($iniciar, $totalArticlesByPage) use ($link, $user, $password, $cerrarConexiones) {
     try {
         $pdo = new PDO($link, $user, $password);
     
         // ---------------- Query para paginación
-        $sql = "SELECT * FROM articulos LIMIT $totalArticlesByPageO OFFSET $pageL";
+        // $sql = "SELECT * FROM articulos LIMIT :totalArticlesByPage OFFSET $iniciar";
+        
         // LIMIT acepta 2 parámetros y se puede omitir OFFSET
-        // $sql = "SELECT * FROM articulos LIMIT $pageL, $totalArticlesByPageO";
+        $sql = "SELECT * FROM articulos LIMIT :iniciar, :totalArticlesByPage";
     
         $stm = $pdo->prepare($sql);
+
+        // El método bindParam se usa para vincular datos que no sean tipo string
+        $stm->bindParam(':iniciar', $iniciar, PDO::PARAM_INT);
+        $stm->bindParam(':totalArticlesByPage', $totalArticlesByPage, PDO::PARAM_INT);
         $stm->execute();
+
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         // ---------------- Query para total de artículos
