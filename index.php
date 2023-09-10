@@ -17,11 +17,13 @@
 
         // Si se ha hecho paginación $page toma el valor de la página actual
         if(isset($_GET['page'])) {
-            $page = $_GET['page']; 
+            $page = intval($_GET['page']);
         }
 
+        // Algoritmo para calcular la paginación
+        $data = $select((($page - 1) * $totalArticlesByPage), $totalArticlesByPage);
+        
         // Result con múltiples resultados
-        $data      = $select($page, $totalArticlesByPage);
         $articulos = $data['result'];
 
         // Recursos para la paginación

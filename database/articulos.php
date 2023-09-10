@@ -6,12 +6,6 @@ $select = function($pageL, $totalArticlesByPageO) use ($link, $user, $password, 
 
         $pageL = is_string($pageL) ? intval($pageL) : $pageL;
         $totalArticlesByPageO = $totalArticlesByPageO;
-
-        // Convertir a entero
-        $pageL = (is_string($pageL)) ? intval($pageL) : $pageL;
-
-        // Algoritmo para calcular la paginación
-        $pageL = ($pageL - 1) * $totalArticlesByPageO;
     
         // ---------------- Query para paginación
         $sql = "SELECT * FROM articulos LIMIT $totalArticlesByPageO OFFSET $pageL";
