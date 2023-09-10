@@ -6,10 +6,11 @@ $select = function($pageL, $totalArticlesByPageO) use ($link, $user, $password, 
     
         // ---------------- Query para paginación
         $sql = "SELECT * FROM articulos LIMIT $totalArticlesByPageO OFFSET $pageL";
+        // LIMIT acepta 2 parámetros y se puede omitir OFFSET
+        // $sql = "SELECT * FROM articulos LIMIT $pageL, $totalArticlesByPageO";
     
         $stm = $pdo->prepare($sql);
         $stm->execute();
-    
         $result = $stm->fetchAll(PDO::FETCH_ASSOC);
 
         // ---------------- Query para total de artículos
