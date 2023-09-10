@@ -3,9 +3,6 @@
 $select = function($pageL, $totalArticlesByPageO) use ($link, $user, $password, $cerrarConexiones) {
     try {
         $pdo = new PDO($link, $user, $password);
-
-        $pageL = is_string($pageL) ? intval($pageL) : $pageL;
-        $totalArticlesByPageO = $totalArticlesByPageO;
     
         // ---------------- Query para paginación
         $sql = "SELECT * FROM articulos LIMIT $totalArticlesByPageO OFFSET $pageL";
